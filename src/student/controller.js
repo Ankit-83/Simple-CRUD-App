@@ -9,7 +9,9 @@ const getStudents = (req, res) => {
 };
 
 const getStudentsById = (req, res) => {
-    const id = parseInt(req.params.id);
+    const id = parseInt(req.query.id);
+
+    console.log("AP", req.query)
     pool.query(queries.getStudentsById, [id], (error, results) => {
         if (error) throw error;
         res.status(200).json(results.rows);
@@ -18,6 +20,7 @@ const getStudentsById = (req, res) => {
 
 const addStudent = (req, res) => {
     const { name, email, phn_no } = req.body;
+    console.log(req.query)
     // check if email exist or not
     pool.query(queries.checkEmailExists, [email], (error, results) => {
         if (results.rows.length) {
@@ -34,7 +37,7 @@ const addStudent = (req, res) => {
 
 const removeStudent = (req, res) => {
     const id = parseInt(req.params.id);
-
+    console.log("D", req.params)
     pool.query(queries.getStudentsById, [id], (error, results) => {
         const noStudentFound = !results.rows.length;
         if (noStudentFound){
