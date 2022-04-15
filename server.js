@@ -1,5 +1,6 @@
 const express = require('express');
 const studentRoutes = require('./src/student/routes');
+const pool = require("./db");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -47,6 +48,8 @@ app.get("/", (req, res) => {
 app.use("/api", studentRoutes);
 
 app.listen(port, () => console.log(`Server is up on port ${port}`));
+
+module.exports = pool;
 
         // <p> DELETE DATA BY ID </p>
         // <form action="/api/id" method = "DELETE">
